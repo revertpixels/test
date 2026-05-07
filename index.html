@@ -19,6 +19,7 @@
             --bg: #f1f5f9;
             --bg-card: #ffffff;
             --border: #e2e8f0;
+            --border-light: #f1f5f9;
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-muted: #64748b;
@@ -26,15 +27,19 @@
             --primary: #1e293b;
             --primary-light: #334155;
             --success: #22c55e;
+            --success-bg: #f0fdf4;
+            --info: #3b82f6;
+            --info-bg: #eff6ff;
+            --warning: #f59e0b;
+            --warning-bg: #fffbeb;
+            --purple: #8b5cf6;
+            --purple-bg: #f5f3ff;
             --danger: #ef4444;
             --danger-bg: #fef2f2;
             --danger-light: #fecaca;
         }
 
-        html {
-            font-family: var(--font);
-            -webkit-font-smoothing: antialiased;
-        }
+        html { font-family: var(--font); -webkit-font-smoothing: antialiased; }
 
         body {
             min-height: 100dvh;
@@ -47,142 +52,83 @@
 
         /* ===== LOADING ===== */
         .loading-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            background: var(--primary);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 18px;
+            position: fixed; inset: 0; z-index: 9999;
+            background: linear-gradient(150deg, #1e293b, #0f172a);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: 16px;
             transition: opacity 0.5s ease;
         }
+        .loading-overlay.hidden { opacity: 0; pointer-events: none; }
 
-        .loading-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loading-icon {
-            width: 52px;
-            height: 52px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.12);
+        .lo-icon {
+            width: 52px; height: 52px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: pulse 1.8s ease-in-out infinite;
+            display: flex; align-items: center; justify-content: center;
+            animation: loPulse 1.6s ease-in-out infinite;
         }
+        .lo-icon .material-icons { font-size: 24px; color: rgba(255,255,255,0.7); }
 
-        .loading-icon .material-icons {
-            font-size: 24px;
-            color: rgba(255,255,255,0.8);
-        }
+        .lo-bar { width: 100px; height: 2px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+        .lo-bar-fill { width: 40%; height: 100%; background: rgba(255,255,255,0.4); border-radius: 4px; animation: loSlide 1s ease-in-out infinite; }
 
-        .loading-bar {
-            width: 100px;
-            height: 2px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .loading-bar-inner {
-            width: 40%;
-            height: 100%;
-            background: rgba(255,255,255,0.5);
-            border-radius: 4px;
-            animation: slide 1s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(0.94); opacity: 0.6; }
-        }
-
-        @keyframes slide {
-            0% { transform: translateX(-200%); }
-            100% { transform: translateX(350%); }
-        }
+        @keyframes loPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(0.92)} }
+        @keyframes loSlide { 0%{transform:translateX(-250%)} 100%{transform:translateX(400%)} }
 
         /* ===== HERO ===== */
         .hero {
             background: linear-gradient(150deg, #1e293b 0%, #0f172a 100%);
-            padding: 56px 24px 72px;
+            padding: 48px 24px 64px;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
 
-        .hero-glow-1 {
+        .hero-glow {
             position: absolute;
-            width: 260px;
-            height: 260px;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(1px);
+        }
+        .hero-glow.a {
+            width: 240px; height: 240px;
             background: radial-gradient(circle, rgba(59,130,246,0.1), transparent 70%);
-            top: -80px;
-            right: -60px;
-            pointer-events: none;
+            top: -80px; right: -50px;
+        }
+        .hero-glow.b {
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(139,92,246,0.07), transparent 70%);
+            bottom: -40px; left: -40px;
         }
 
-        .hero-glow-2 {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(139,92,246,0.08), transparent 70%);
-            bottom: -60px;
-            left: -50px;
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
+        .hero-inner { position: relative; z-index: 1; }
 
         .logo {
-            width: 72px;
-            height: 72px;
-            background: rgba(255,255,255,0.07);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            width: 72px; height: 72px;
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 18px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            animation: fadeDown 0.7s ease both;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 16px;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.35),
+                        inset 0 1px 0 rgba(255,255,255,0.08);
+            animation: fadeD 0.65s ease both;
         }
-
-        .logo img {
-            width: 42px;
-            height: 42px;
-            object-fit: contain;
-            border-radius: 10px;
-        }
+        .logo img { width: 42px; height: 42px; object-fit: contain; border-radius: 10px; }
 
         .app-name {
-            font-size: 2rem;
-            font-weight: 900;
-            color: white;
-            letter-spacing: -0.8px;
-            margin-bottom: 8px;
-            animation: fadeDown 0.7s ease 0.05s both;
+            font-size: 2rem; font-weight: 900; color: white;
+            letter-spacing: -0.8px; margin-bottom: 6px;
+            animation: fadeD 0.65s ease 0.04s both;
         }
+        .app-name span { color: rgba(255,255,255,0.32); font-weight: 700; }
 
-        .app-name span {
-            color: rgba(255,255,255,0.35);
-            font-weight: 700;
-        }
-
-        .app-tagline {
-            font-size: 0.88rem;
-            color: rgba(255,255,255,0.55);
-            font-weight: 400;
-            animation: fadeDown 0.7s ease 0.1s both;
+        .app-tag {
+            font-size: 0.86rem; color: rgba(255,255,255,0.5);
+            font-weight: 400; line-height: 1.5;
+            animation: fadeD 0.65s ease 0.08s both;
         }
 
         /* ===== BODY ===== */
@@ -190,241 +136,267 @@
             flex: 1;
             background: var(--bg-card);
             border-radius: 28px 28px 0 0;
-            margin-top: -24px;
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 44px 24px 32px;
+            margin-top: -22px;
+            position: relative; z-index: 2;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 36px 22px 24px;
         }
 
-        .card {
-            width: 100%;
-            max-width: 360px;
-            text-align: center;
-            animation: fadeUp 0.7s ease 0.15s both;
+        .content {
+            width: 100%; max-width: 380px;
+            display: flex; flex-direction: column; align-items: center;
         }
 
-        /* Greeting */
+        /* ===== GREETING ===== */
         .greeting {
-            margin-bottom: 28px;
+            text-align: center;
+            margin-bottom: 24px;
+            animation: fadeU 0.6s ease 0.12s both;
         }
-
         .greeting h2 {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            letter-spacing: -0.4px;
-            margin-bottom: 6px;
+            font-size: 1.25rem; font-weight: 800;
+            color: var(--text-primary); letter-spacing: -0.3px;
+            margin-bottom: 5px;
         }
+        .greeting p { font-size: 0.8rem; color: var(--text-muted); }
 
-        .greeting p {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-        }
-
-        /* Error */
+        /* ===== ERROR ===== */
         .auth-error {
-            display: none;
-            align-items: center;
-            gap: 8px;
-            padding: 11px 14px;
-            background: var(--danger-bg);
-            border: 1px solid var(--danger-light);
-            border-radius: 12px;
-            color: var(--danger);
-            font-size: 0.78rem;
-            margin-bottom: 16px;
-            text-align: left;
+            display: none; align-items: center; gap: 8px;
+            padding: 11px 14px; width: 100%;
+            background: var(--danger-bg); border: 1px solid var(--danger-light);
+            border-radius: 12px; color: var(--danger);
+            font-size: 0.78rem; margin-bottom: 14px; text-align: left;
         }
-
         .auth-error.show { display: flex; }
         .auth-error .material-icons { font-size: 1rem; flex-shrink: 0; }
 
         /* ===== BUTTON ===== */
         .sign-in-btn {
-            width: 100%;
-            padding: 16px 24px;
-            background: var(--primary);
-            border: none;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 14px;
-            font-family: var(--font);
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
+            width: 100%; padding: 15px 24px;
+            background: var(--primary); border: none; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            font-family: var(--font); font-size: 0.95rem; font-weight: 600;
+            color: white; cursor: pointer;
             transition: all 0.25s ease;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 6px 20px rgba(15,23,42,0.15);
+            touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+            position: relative; overflow: hidden;
+            box-shadow: 0 6px 20px rgba(15,23,42,0.14);
+            animation: fadeU 0.6s ease 0.16s both;
         }
-
         .sign-in-btn:hover {
             background: var(--primary-light);
             transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(15,23,42,0.2);
+            box-shadow: 0 10px 28px rgba(15,23,42,0.2);
         }
-
-        .sign-in-btn:active {
-            transform: translateY(0) scale(0.99);
-        }
-
-        .sign-in-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none !important;
-        }
+        .sign-in-btn:active { transform: translateY(0) scale(0.99); }
+        .sign-in-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
 
         .g-icon {
-            width: 28px;
-            height: 28px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+            width: 28px; height: 28px; background: white;
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; flex-shrink: 0;
         }
-
-        .g-icon img {
-            width: 16px;
-            height: 16px;
-        }
+        .g-icon img { width: 16px; height: 16px; }
 
         .btn-spinner {
-            width: 20px;
-            height: 20px;
+            width: 20px; height: 20px;
             border: 2.5px solid rgba(255,255,255,0.25);
-            border-top-color: white;
-            border-radius: 50%;
+            border-top-color: white; border-radius: 50%;
             animation: spin 0.7s linear infinite;
         }
 
         .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.15);
+            position: absolute; border-radius: 50%;
+            background: rgba(255,255,255,0.12);
             transform: scale(0);
-            animation: rippleAnim 0.5s ease-out forwards;
+            animation: rippleA 0.5s ease-out forwards;
             pointer-events: none;
         }
+        @keyframes rippleA { to { transform: scale(4); opacity: 0; } }
 
-        @keyframes rippleAnim {
-            to { transform: scale(4); opacity: 0; }
+        /* ===== TRUST ROW ===== */
+        .trust {
+            display: flex; align-items: center; justify-content: center;
+            gap: 14px; margin-top: 16px;
+            animation: fadeU 0.6s ease 0.2s both;
         }
-
-        /* ===== SUBTLE TRUST ===== */
-        .trust-line {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            margin-top: 20px;
-        }
-
         .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: var(--text-light);
+            display: flex; align-items: center; gap: 4px;
+            font-size: 0.7rem; font-weight: 500; color: var(--text-light);
+        }
+        .trust-item .material-icons { font-size: 0.82rem; color: var(--success); }
+
+        /* ===== HIGHLIGHTS — Minimal but premium ===== */
+        .highlights {
+            width: 100%;
+            margin-top: 28px;
+            animation: fadeU 0.6s ease 0.28s both;
         }
 
-        .trust-item .material-icons {
-            font-size: 0.82rem;
-            color: var(--success);
+        .hl-row {
+            display: flex; gap: 10px;
         }
+
+        .hl-card {
+            flex: 1;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px 12px 14px;
+            display: flex; flex-direction: column;
+            align-items: center; text-align: center;
+            gap: 10px;
+            transition: all 0.28s ease;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hl-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            border-radius: 0 0 16px 16px;
+            opacity: 0;
+            transition: opacity 0.28s ease;
+        }
+
+        .hl-card:hover {
+            border-color: var(--border-light);
+            background: var(--bg-card);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(15,23,42,0.06);
+        }
+        .hl-card:hover::after { opacity: 1; }
+
+        .hl-card:nth-child(1)::after { background: var(--success); }
+        .hl-card:nth-child(2)::after { background: var(--info); }
+
+        .hl-icon {
+            width: 38px; height: 38px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.25s ease;
+        }
+        .hl-card:hover .hl-icon { transform: scale(1.08); }
+
+        .hl-icon .material-icons { font-size: 1.15rem; }
+        .hl-icon.green { background: var(--success-bg); color: var(--success); }
+        .hl-icon.blue { background: var(--info-bg); color: var(--info); }
+
+        .hl-text { display: flex; flex-direction: column; gap: 2px; }
+        .hl-title { font-size: 0.72rem; font-weight: 700; color: var(--text-primary); }
+        .hl-desc { font-size: 0.62rem; font-weight: 400; color: var(--text-light); line-height: 1.4; }
+
+        /* Second row */
+        .hl-row-2 { margin-top: 10px; }
+
+        .hl-card:nth-child(1).row2::after { background: var(--warning); }
+        .hl-card:nth-child(2).row2::after { background: var(--purple); }
+
+        .hl-icon.orange { background: var(--warning-bg); color: var(--warning); }
+        .hl-icon.purple { background: var(--purple-bg); color: var(--purple); }
+
+        /* ===== SOCIAL PROOF ===== */
+        .social-proof {
+            display: flex; align-items: center; justify-content: center;
+            gap: 6px; margin-top: 22px;
+            animation: fadeU 0.6s ease 0.36s both;
+        }
+
+        .avatars {
+            display: flex;
+        }
+
+        .avatar {
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-card);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.52rem; font-weight: 700; color: white;
+            margin-left: -8px;
+        }
+        .avatar:first-child { margin-left: 0; }
+        .avatar.a1 { background: #6366f1; }
+        .avatar.a2 { background: #f59e0b; }
+        .avatar.a3 { background: #22c55e; }
+        .avatar.a4 { background: #ec4899; }
+
+        .sp-text {
+            font-size: 0.68rem; color: var(--text-light); font-weight: 500;
+            margin-left: 4px;
+        }
+        .sp-text strong { color: var(--text-secondary); font-weight: 700; }
 
         /* ===== FOOTER ===== */
         .footer {
-            width: 100%;
-            max-width: 360px;
+            width: 100%; max-width: 380px;
             text-align: center;
             margin-top: auto;
-            padding-top: 28px;
-            animation: fadeUp 0.7s ease 0.3s both;
+            padding-top: 24px;
+            animation: fadeU 0.6s ease 0.42s both;
         }
-
         .footer-text {
-            font-size: 0.68rem;
-            color: var(--text-light);
-            line-height: 1.7;
+            font-size: 0.68rem; color: var(--text-light); line-height: 1.7;
         }
-
         .footer-text a {
-            color: var(--text-muted);
-            font-weight: 600;
-            text-decoration: none;
+            color: var(--text-muted); font-weight: 600; text-decoration: none;
         }
+        .footer-text a:hover { color: var(--primary); text-decoration: underline; }
 
-        .footer-text a:hover {
-            color: var(--primary);
-            text-decoration: underline;
-        }
-
-        .footer-links {
-            margin-top: 6px;
-        }
-
+        .footer-links { margin-top: 5px; }
         .footer-links a {
-            color: var(--text-light);
-            font-size: 0.68rem;
-            font-weight: 500;
-            text-decoration: none;
-            padding: 2px 6px;
+            color: var(--text-light); font-size: 0.68rem;
+            font-weight: 500; text-decoration: none; padding: 2px 6px;
         }
-
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-
-        .footer-links span {
-            color: var(--border);
-            font-size: 0.7rem;
-        }
+        .footer-links a:hover { color: var(--primary); }
+        .footer-links span { color: var(--border); font-size: 0.7rem; }
 
         /* ===== ANIMATIONS ===== */
-        @keyframes fadeDown {
+        @keyframes fadeD {
             from { opacity: 0; transform: translateY(-12px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        @keyframes fadeUp {
+        @keyframes fadeU {
             from { opacity: 0; transform: translateY(14px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 380px) {
-            .hero { padding: 44px 20px 60px; }
+            .hero { padding: 38px 20px 56px; }
             .app-name { font-size: 1.7rem; }
             .logo { width: 62px; height: 62px; }
             .logo img { width: 36px; height: 36px; }
-            .body-section { padding: 36px 20px 24px; }
-            .greeting h2 { font-size: 1.15rem; }
+            .body-section { padding: 30px 18px 20px; }
+            .greeting h2 { font-size: 1.1rem; }
+            .hl-card { padding: 12px 8px 11px; border-radius: 14px; }
+            .hl-icon { width: 32px; height: 32px; }
+            .hl-icon .material-icons { font-size: 1rem; }
+            .hl-title { font-size: 0.66rem; }
+            .hl-desc { font-size: 0.56rem; }
+            .avatar { width: 22px; height: 22px; font-size: 0.46rem; }
+        }
+
+        @media (max-width: 340px) {
+            .hl-row { gap: 7px; }
+            .hl-desc { display: none; }
         }
 
         @media (min-width: 768px) {
-            .hero { padding: 72px 24px 96px; }
+            .hero { padding: 64px 24px 88px; }
             .app-name { font-size: 2.4rem; }
             .logo { width: 84px; height: 84px; }
             .logo img { width: 50px; height: 50px; }
-            .body-section { padding: 52px 24px 36px; margin-top: -30px; }
-            .card, .footer { max-width: 400px; }
+            .body-section { padding: 44px 24px 28px; margin-top: -28px; }
+            .content, .footer { max-width: 420px; }
             .sign-in-btn { padding: 17px 28px; font-size: 1rem; }
+            .hl-card { padding: 20px 14px 18px; }
+            .hl-title { font-size: 0.78rem; }
+            .hl-desc { font-size: 0.68rem; }
         }
     </style>
 </head>
@@ -432,63 +404,104 @@
 
 <!-- Loading -->
 <div class="loading-overlay" id="loadingOverlay">
-    <div class="loading-icon">
-        <span class="material-icons">account_balance_wallet</span>
-    </div>
-    <div class="loading-bar">
-        <div class="loading-bar-inner"></div>
-    </div>
+    <div class="lo-icon"><span class="material-icons">account_balance_wallet</span></div>
+    <div class="lo-bar"><div class="lo-bar-fill"></div></div>
 </div>
 
 <!-- Hero -->
 <div class="hero">
-    <div class="hero-glow-1"></div>
-    <div class="hero-glow-2"></div>
-    <div class="hero-content">
+    <div class="hero-glow a"></div>
+    <div class="hero-glow b"></div>
+    <div class="hero-inner">
         <div class="logo">
             <img src="https://placehold.co/42x42/1e293b/ffffff?text=T" alt="TrackMyTxn">
         </div>
         <div class="app-name">TrackMy<span>Txn</span></div>
-        <div class="app-tagline">Smart money tracking for smart people</div>
+        <div class="app-tag">Smart money tracking for smart people</div>
     </div>
 </div>
 
 <!-- Body -->
 <div class="body-section">
+    <div class="content">
 
-    <div class="card">
-
+        <!-- Greeting -->
         <div class="greeting">
             <h2>Welcome back 👋</h2>
             <p>Sign in to continue to your dashboard</p>
         </div>
 
+        <!-- Error -->
         <div class="auth-error" id="authError">
             <span class="material-icons">error_outline</span>
             <span id="authErrorText"></span>
         </div>
 
-        <button class="sign-in-btn" id="googleSignInBtn" onclick="handleSignIn(this, event)">
+        <!-- Button -->
+        <button class="sign-in-btn" id="googleSignInBtn" onclick="handleSignIn(this,event)">
             <div class="g-icon">
                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
             </div>
             Continue with Google
         </button>
 
-        <div class="trust-line">
-            <div class="trust-item">
-                <span class="material-icons">check_circle</span> Free
+        <!-- Trust -->
+        <div class="trust">
+            <div class="trust-item"><span class="material-icons">check_circle</span>Free</div>
+            <div class="trust-item"><span class="material-icons">check_circle</span>Secure</div>
+            <div class="trust-item"><span class="material-icons">check_circle</span>Synced</div>
+        </div>
+
+        <!-- Highlights — 2x2 grid -->
+        <div class="highlights">
+            <div class="hl-row">
+                <div class="hl-card">
+                    <div class="hl-icon green"><span class="material-icons">trending_up</span></div>
+                    <div class="hl-text">
+                        <div class="hl-title">Track Income</div>
+                        <div class="hl-desc">Log every rupee in & out</div>
+                    </div>
+                </div>
+                <div class="hl-card">
+                    <div class="hl-icon blue"><span class="material-icons">insights</span></div>
+                    <div class="hl-text">
+                        <div class="hl-title">Smart Reports</div>
+                        <div class="hl-desc">Charts & monthly insights</div>
+                    </div>
+                </div>
             </div>
-            <div class="trust-item">
-                <span class="material-icons">check_circle</span> Secure
+            <div class="hl-row hl-row-2">
+                <div class="hl-card row2">
+                    <div class="hl-icon orange"><span class="material-icons">group</span></div>
+                    <div class="hl-text">
+                        <div class="hl-title">Split Bills</div>
+                        <div class="hl-desc">Share expenses easily</div>
+                    </div>
+                </div>
+                <div class="hl-card row2">
+                    <div class="hl-icon purple"><span class="material-icons">picture_as_pdf</span></div>
+                    <div class="hl-text">
+                        <div class="hl-title">Export PDF</div>
+                        <div class="hl-desc">Download clean reports</div>
+                    </div>
+                </div>
             </div>
-            <div class="trust-item">
-                <span class="material-icons">check_circle</span> Synced
+        </div>
+
+        <!-- Social Proof -->
+        <div class="social-proof">
+            <div class="avatars">
+                <div class="avatar a1">A</div>
+                <div class="avatar a2">R</div>
+                <div class="avatar a3">S</div>
+                <div class="avatar a4">P</div>
             </div>
+            <div class="sp-text"><strong>500+</strong> people already tracking</div>
         </div>
 
     </div>
 
+    <!-- Footer -->
     <div class="footer">
         <div class="footer-text">
             By continuing, you agree to our
@@ -501,48 +514,41 @@
             <a href="contact.html">Contact</a>
         </div>
     </div>
-
 </div>
 
 <script>
-    window.addEventListener('load', function () {
-        setTimeout(function () {
+    window.addEventListener('load', function(){
+        setTimeout(function(){
             var el = document.getElementById('loadingOverlay');
-            if (el) {
-                el.classList.add('hidden');
-                setTimeout(function () { el.remove(); }, 500);
-            }
+            if(el){ el.classList.add('hidden'); setTimeout(function(){ el.remove(); }, 500); }
         }, 700);
     });
 
-    function handleSignIn(btn, e) {
-        var rect = btn.getBoundingClientRect();
-        var ripple = document.createElement('span');
-        ripple.className = 'ripple';
-        var size = Math.max(rect.width, rect.height);
-        ripple.style.cssText =
-            'width:'+size+'px;height:'+size+'px;left:'
-            +(e.clientX-rect.left-size/2)+'px;top:'
-            +(e.clientY-rect.top-size/2)+'px;';
-        btn.appendChild(ripple);
-        setTimeout(function(){ ripple.remove(); }, 550);
+    function handleSignIn(btn, e){
+        var r = btn.getBoundingClientRect();
+        var rp = document.createElement('span');
+        rp.className = 'ripple';
+        var s = Math.max(r.width, r.height);
+        rp.style.cssText = 'width:'+s+'px;height:'+s+'px;left:'+(e.clientX-r.left-s/2)+'px;top:'+(e.clientY-r.top-s/2)+'px;';
+        btn.appendChild(rp);
+        setTimeout(function(){ rp.remove(); }, 550);
 
         btn.disabled = true;
         var orig = btn.innerHTML;
         btn.innerHTML = '<div class="btn-spinner"></div> Signing in…';
 
         // Replace with: signInWithGoogle();
-        setTimeout(function () {
+        setTimeout(function(){
             btn.innerHTML = orig;
             btn.disabled = false;
             showAuthError('Demo mode — connect Firebase to sign in.');
         }, 2000);
     }
 
-    function showAuthError(msg) {
+    function showAuthError(msg){
         var el = document.getElementById('authError');
         var txt = document.getElementById('authErrorText');
-        if (el && txt) {
+        if(el && txt){
             txt.textContent = msg;
             el.classList.add('show');
             setTimeout(function(){ el.classList.remove('show'); }, 6000);
