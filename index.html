@@ -8,9 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        /* ============================================================
-           VARIABLES — exact same as original project
-           ============================================================ */
         *, *::before, *::after {
             margin: 0;
             padding: 0;
@@ -19,48 +16,19 @@
 
         :root {
             --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-
-            /* Backgrounds */
             --bg: #f1f5f9;
             --bg-card: #ffffff;
-            --bg-elevated: #f8fafc;
-
-            /* Borders */
             --border: #e2e8f0;
-            --border-light: #f1f5f9;
-
-            /* Text */
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-muted: #64748b;
             --text-light: #94a3b8;
-
-            /* Primary (dark navy) */
             --primary: #1e293b;
             --primary-light: #334155;
-            --primary-lighter: #475569;
-            --primary-glow: rgba(30, 41, 59, 0.08);
-
-            /* Status colors */
             --success: #22c55e;
-            --success-bg: #f0fdf4;
-            --info: #3b82f6;
-            --info-bg: #eff6ff;
-            --warning: #f59e0b;
-            --warning-bg: #fffbeb;
             --danger: #ef4444;
             --danger-bg: #fef2f2;
             --danger-light: #fecaca;
-
-            /* Purple accent */
-            --purple: #8b5cf6;
-            --purple-bg: #f5f3ff;
-
-            /* Radius */
-            --radius-sm: 10px;
-            --radius-md: 14px;
-            --radius-lg: 20px;
-            --radius-xl: 24px;
         }
 
         html {
@@ -71,16 +39,13 @@
         body {
             min-height: 100dvh;
             min-height: 100vh;
-            background: var(--bg);
-            color: var(--text-primary);
-            overflow-x: hidden;
+            background: var(--bg-card);
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
-        /* ============================================================
-           LOADING OVERLAY
-           ============================================================ */
+        /* ===== LOADING ===== */
         .loading-overlay {
             position: fixed;
             inset: 0;
@@ -90,8 +55,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 16px;
-            transition: opacity 0.45s ease;
+            gap: 18px;
+            transition: opacity 0.5s ease;
         }
 
         .loading-overlay.hidden {
@@ -99,295 +64,168 @@
             pointer-events: none;
         }
 
-        .loading-logo-box {
-            width: 60px;
-            height: 60px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 18px;
+        .loading-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: loadPulse 1.6s ease-in-out infinite;
+            animation: pulse 1.8s ease-in-out infinite;
         }
 
-        .loading-logo-box .material-icons {
-            font-size: 28px;
-            color: white;
+        .loading-icon .material-icons {
+            font-size: 24px;
+            color: rgba(255,255,255,0.8);
         }
 
-        .loading-track {
-            width: 120px;
+        .loading-bar {
+            width: 100px;
             height: 2px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.08);
             border-radius: 4px;
             overflow: hidden;
         }
 
-        .loading-fill {
-            width: 45%;
+        .loading-bar-inner {
+            width: 40%;
             height: 100%;
-            background: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.5);
             border-radius: 4px;
-            animation: loadSlide 1s ease-in-out infinite;
+            animation: slide 1s ease-in-out infinite;
         }
 
-        .loading-label {
-            font-size: 0.72rem;
-            color: rgba(255,255,255,0.5);
-            font-weight: 500;
-            letter-spacing: 0.5px;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(0.94); opacity: 0.6; }
         }
 
-        @keyframes loadPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(0.93); }
-        }
-
-        @keyframes loadSlide {
+        @keyframes slide {
             0% { transform: translateX(-200%); }
             100% { transform: translateX(350%); }
         }
 
-        /* ============================================================
-           DARK HERO
-           ============================================================ */
-        .login-hero {
-            background: linear-gradient(150deg, #1e293b 0%, #0f172a 60%, #1e293b 100%);
-            padding: 40px 20px 52px;
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(150deg, #1e293b 0%, #0f172a 100%);
+            padding: 56px 24px 72px;
             text-align: center;
             position: relative;
             overflow: hidden;
-            flex-shrink: 0;
         }
 
-        /* Subtle grid */
-        .login-hero::before {
-            content: '';
+        .hero-glow-1 {
             position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-            background-size: 48px 48px;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(59,130,246,0.1), transparent 70%);
+            top: -80px;
+            right: -60px;
             pointer-events: none;
         }
 
-        /* Glow orbs */
-        .hero-orb-1 {
+        .hero-glow-2 {
             position: absolute;
-            width: 280px;
-            height: 280px;
-            background: radial-gradient(circle, rgba(59,130,246,0.12), transparent 65%);
-            top: -100px;
-            right: -80px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(139,92,246,0.08), transparent 70%);
+            bottom: -60px;
+            left: -50px;
             pointer-events: none;
-            animation: orbDrift1 14s ease-in-out infinite;
         }
 
-        .hero-orb-2 {
-            position: absolute;
-            width: 240px;
-            height: 240px;
-            background: radial-gradient(circle, rgba(139,92,246,0.1), transparent 65%);
-            bottom: -80px;
-            left: -60px;
-            pointer-events: none;
-            animation: orbDrift2 18s ease-in-out infinite;
-        }
-
-        @keyframes orbDrift1 {
-            0%, 100% { transform: translate(0,0); }
-            50% { transform: translate(-20px, 30px); }
-        }
-
-        @keyframes orbDrift2 {
-            0%, 100% { transform: translate(0,0); }
-            50% { transform: translate(25px, -20px); }
-        }
-
-        .login-hero-inner {
+        .hero-content {
             position: relative;
-            z-index: 2;
-            max-width: 460px;
-            margin: 0 auto;
+            z-index: 1;
         }
 
-        /* Logo */
-        .brand-logo-wrap {
-            position: relative;
-            width: 76px;
-            height: 76px;
-            margin: 0 auto 16px;
-        }
-
-        .brand-logo-ring {
-            position: absolute;
-            inset: -3px;
-            border-radius: 23px;
-            border: 1.5px solid transparent;
-            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.04)) border-box;
-            -webkit-mask:
-                linear-gradient(#fff 0 0) padding-box,
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: destination-out;
-            mask-composite: exclude;
-            animation: ringRotate 8s linear infinite;
-            opacity: 0.7;
-        }
-
-        @keyframes ringRotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .brand-logo {
-            width: 76px;
-            height: 76px;
+        .logo {
+            width: 72px;
+            height: 72px;
             background: rgba(255,255,255,0.07);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow:
-                0 20px 60px rgba(0,0,0,0.4),
-                inset 0 1px 0 rgba(255,255,255,0.1);
-            animation: fadeSlideDown 0.6s ease both;
+            margin: 0 auto 18px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: fadeDown 0.7s ease both;
         }
 
-        .brand-logo img {
-            width: 44px;
-            height: 44px;
+        .logo img {
+            width: 42px;
+            height: 42px;
             object-fit: contain;
             border-radius: 10px;
         }
 
-        .brand-name {
-            font-size: 1.95rem;
+        .app-name {
+            font-size: 2rem;
             font-weight: 900;
             color: white;
             letter-spacing: -0.8px;
-            line-height: 1.1;
-            margin-bottom: 7px;
-            animation: fadeSlideDown 0.6s ease 0.06s both;
+            margin-bottom: 8px;
+            animation: fadeDown 0.7s ease 0.05s both;
         }
 
-        .brand-name .txn {
-            color: rgba(255,255,255,0.38);
+        .app-name span {
+            color: rgba(255,255,255,0.35);
             font-weight: 700;
         }
 
-        .brand-tagline {
-            font-size: 0.86rem;
-            color: rgba(255,255,255,0.6);
+        .app-tagline {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.55);
             font-weight: 400;
-            line-height: 1.5;
-            animation: fadeSlideDown 0.6s ease 0.12s both;
+            animation: fadeDown 0.7s ease 0.1s both;
         }
 
-        /* Status pills row */
-        .hero-pills {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 7px;
-            margin-top: 18px;
-            flex-wrap: wrap;
-            animation: fadeSlideDown 0.6s ease 0.18s both;
-        }
-
-        .hero-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 5px 11px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 999px;
-            font-size: 0.68rem;
-            font-weight: 600;
-            color: rgba(255,255,255,0.65);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .hero-pill-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        .hero-pill-dot.green {
-            background: #22c55e;
-            box-shadow: 0 0 5px rgba(34,197,94,0.7);
-        }
-
-        .hero-pill-dot.blue { background: #60a5fa; }
-        .hero-pill-dot.purple { background: #a78bfa; }
-
-        /* ============================================================
-           WHITE BODY SECTION
-           ============================================================ */
-        .login-body-section {
+        /* ===== BODY ===== */
+        .body-section {
             flex: 1;
             background: var(--bg-card);
             border-radius: 28px 28px 0 0;
-            margin-top: -20px;
+            margin-top: -24px;
             position: relative;
-            z-index: 3;
-            padding: 30px 20px 24px;
+            z-index: 2;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            padding: 44px 24px 32px;
         }
 
-        /* Subtle handle indicator */
-        .body-handle {
-            width: 36px;
-            height: 4px;
-            background: var(--border);
-            border-radius: 999px;
-            position: absolute;
-            top: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* ============================================================
-           ACTION AREA
-           ============================================================ */
-        .login-action {
+        .card {
             width: 100%;
-            max-width: 390px;
-            animation: fadeSlideUp 0.6s ease 0.2s both;
-        }
-
-        .login-greeting {
+            max-width: 360px;
             text-align: center;
-            margin-bottom: 18px;
+            animation: fadeUp 0.7s ease 0.15s both;
         }
 
-        .login-greeting-title {
-            font-size: 1.2rem;
+        /* Greeting */
+        .greeting {
+            margin-bottom: 28px;
+        }
+
+        .greeting h2 {
+            font-size: 1.3rem;
             font-weight: 800;
             color: var(--text-primary);
-            margin-bottom: 4px;
-            letter-spacing: -0.3px;
+            letter-spacing: -0.4px;
+            margin-bottom: 6px;
         }
 
-        .login-greeting-subtitle {
-            font-size: 0.8rem;
+        .greeting p {
+            font-size: 0.82rem;
             color: var(--text-muted);
-            line-height: 1.5;
         }
 
-        /* ============================================================
-           AUTH ERROR
-           ============================================================ */
+        /* Error */
         .auth-error {
             display: none;
             align-items: center;
@@ -395,120 +233,57 @@
             padding: 11px 14px;
             background: var(--danger-bg);
             border: 1px solid var(--danger-light);
-            border-radius: var(--radius-sm);
+            border-radius: 12px;
             color: var(--danger);
             font-size: 0.78rem;
-            margin-bottom: 14px;
-            line-height: 1.4;
+            margin-bottom: 16px;
+            text-align: left;
         }
 
         .auth-error.show { display: flex; }
+        .auth-error .material-icons { font-size: 1rem; flex-shrink: 0; }
 
-        .auth-error .material-icons {
-            font-size: 1rem;
-            flex-shrink: 0;
-        }
-
-        /* ============================================================
-           GOOGLE BUTTON — Premium version, same color palette
-           ============================================================ */
-        .google-btn-wrap {
-            position: relative;
+        /* ===== BUTTON ===== */
+        .sign-in-btn {
             width: 100%;
-            margin-bottom: 4px;
-        }
-
-        /* Glow layer behind button */
-        .google-btn-glow {
-            position: absolute;
-            inset: 4px;
-            background: linear-gradient(135deg, #1e293b, #334155);
-            border-radius: var(--radius-md);
-            filter: blur(14px);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 0;
-            transform: translateY(4px);
-        }
-
-        .google-btn-wrap:hover .google-btn-glow {
-            opacity: 0.18;
-        }
-
-        .google-btn {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            padding: 15px 20px;
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            padding: 16px 24px;
+            background: var(--primary);
             border: none;
-            border-radius: var(--radius-md);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 14px;
             font-family: var(--font);
             font-size: 0.95rem;
             font-weight: 600;
             color: white;
             cursor: pointer;
-            transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s ease;
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
+            position: relative;
             overflow: hidden;
-            box-shadow:
-                0 4px 16px rgba(15, 23, 42, 0.14),
-                0 1px 4px rgba(15, 23, 42, 0.1),
-                inset 0 1px 0 rgba(255,255,255,0.1);
+            box-shadow: 0 6px 20px rgba(15,23,42,0.15);
         }
 
-        /* Top shimmer line */
-        .google-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 15%;
-            right: 15%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        }
-
-        /* Hover sweep effect */
-        .google-btn::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .google-btn:hover::after {
-            opacity: 1;
-        }
-
-        .google-btn:hover {
+        .sign-in-btn:hover {
+            background: var(--primary-light);
             transform: translateY(-2px);
-            box-shadow:
-                0 10px 32px rgba(15, 23, 42, 0.2),
-                0 2px 8px rgba(15, 23, 42, 0.12),
-                inset 0 1px 0 rgba(255,255,255,0.12);
-            background: linear-gradient(135deg, #1e293b 0%, #2d3f55 100%);
+            box-shadow: 0 12px 32px rgba(15,23,42,0.2);
         }
 
-        .google-btn:active {
+        .sign-in-btn:active {
             transform: translateY(0) scale(0.99);
-            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
         }
 
-        .google-btn:disabled {
-            opacity: 0.55;
+        .sign-in-btn:disabled {
+            opacity: 0.5;
             cursor: not-allowed;
             transform: none !important;
-            box-shadow: none !important;
         }
 
-        .google-icon-circle {
+        .g-icon {
             width: 28px;
             height: 28px;
             background: white;
@@ -517,10 +292,9 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         }
 
-        .google-icon-circle img {
+        .g-icon img {
             width: 16px;
             height: 16px;
         }
@@ -532,437 +306,198 @@
             border-top-color: white;
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
-            flex-shrink: 0;
         }
 
-        /* Ripple */
         .ripple {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255,255,255,0.18);
+            background: rgba(255,255,255,0.15);
             transform: scale(0);
-            animation: rippleGrow 0.55s ease-out forwards;
+            animation: rippleAnim 0.5s ease-out forwards;
             pointer-events: none;
         }
 
-        @keyframes rippleGrow {
-            to { transform: scale(4.5); opacity: 0; }
+        @keyframes rippleAnim {
+            to { transform: scale(4); opacity: 0; }
         }
 
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* ============================================================
-           TRUST STRIP
-           ============================================================ */
-        .trust-strip {
+        /* ===== SUBTLE TRUST ===== */
+        .trust-line {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            margin-top: 14px;
-            flex-wrap: wrap;
-        }
-
-        .trust-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 5px 12px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            transition: all 0.22s ease;
-        }
-
-        .trust-chip:hover {
-            border-color: var(--primary);
-            background: var(--bg-elevated);
-            color: var(--primary);
-        }
-
-        .trust-chip .material-icons {
-            font-size: 0.88rem;
-        }
-
-        .trust-chip .material-icons.green { color: var(--success); }
-        .trust-chip .material-icons.blue { color: var(--info); }
-        .trust-chip .material-icons.purple { color: var(--purple); }
-
-        /* ============================================================
-           DIVIDER
-           ============================================================ */
-        .section-divider {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            max-width: 390px;
-            margin: 22px 0 14px;
-            animation: fadeSlideUp 0.6s ease 0.32s both;
-        }
-
-        .section-divider-line {
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        .section-divider-text {
-            font-size: 0.62rem;
-            font-weight: 700;
-            color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 1.4px;
-            white-space: nowrap;
-        }
-
-        /* ============================================================
-           FEATURES GRID
-           ============================================================ */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 9px;
-            width: 100%;
-            max-width: 390px;
-            animation: fadeSlideUp 0.6s ease 0.38s both;
-        }
-
-        .feature-card {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 14px 6px 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            text-align: center;
-            transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            cursor: default;
-        }
-
-        /* Top accent line on hover */
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            border-radius: 4px 4px 0 0;
-            background: transparent;
-            transition: background 0.28s ease;
-        }
-
-        .feature-card:hover {
-            background: var(--bg-card);
-            border-color: var(--border-light);
-            transform: translateY(-3px);
-            box-shadow:
-                0 8px 24px rgba(15, 23, 42, 0.07),
-                0 2px 6px rgba(15, 23, 42, 0.04);
-        }
-
-        .feature-card:nth-child(1):hover::before { background: var(--success); }
-        .feature-card:nth-child(2):hover::before { background: var(--info); }
-        .feature-card:nth-child(3):hover::before { background: var(--warning); }
-        .feature-card:nth-child(4):hover::before { background: var(--purple); }
-
-        .feature-icon {
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: transform 0.28s ease;
-        }
-
-        .feature-card:hover .feature-icon {
-            transform: scale(1.1);
-        }
-
-        .feature-icon .material-icons { font-size: 1.05rem; }
-        .feature-icon.green { background: var(--success-bg); color: var(--success); }
-        .feature-icon.blue { background: var(--info-bg); color: var(--info); }
-        .feature-icon.orange { background: var(--warning-bg); color: var(--warning); }
-        .feature-icon.purple { background: var(--purple-bg); color: var(--purple); }
-
-        .feature-label {
-            font-size: 0.62rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            line-height: 1.3;
-        }
-
-        /* ============================================================
-           FOOTER
-           ============================================================ */
-        .login-footer {
-            width: 100%;
-            max-width: 390px;
-            text-align: center;
+            gap: 16px;
             margin-top: 20px;
-            padding-bottom: 8px;
-            animation: fadeSlideUp 0.6s ease 0.44s both;
         }
 
-        .footer-legal {
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
             font-size: 0.7rem;
+            font-weight: 500;
             color: var(--text-light);
-            line-height: 1.6;
         }
 
-        .footer-legal a {
-            color: var(--primary-lighter);
+        .trust-item .material-icons {
+            font-size: 0.82rem;
+            color: var(--success);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            margin-top: auto;
+            padding-top: 28px;
+            animation: fadeUp 0.7s ease 0.3s both;
+        }
+
+        .footer-text {
+            font-size: 0.68rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .footer-text a {
+            color: var(--text-muted);
             font-weight: 600;
             text-decoration: none;
-            transition: color 0.2s ease;
         }
 
-        .footer-legal a:hover {
+        .footer-text a:hover {
             color: var(--primary);
             text-decoration: underline;
         }
 
         .footer-links {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0;
             margin-top: 6px;
         }
 
         .footer-links a {
-            color: var(--text-muted);
-            font-size: 0.7rem;
+            color: var(--text-light);
+            font-size: 0.68rem;
             font-weight: 500;
             text-decoration: none;
-            padding: 3px 8px;
-            border-radius: 6px;
-            transition: all 0.2s ease;
+            padding: 2px 6px;
         }
 
         .footer-links a:hover {
             color: var(--primary);
-            background: var(--primary-glow);
         }
 
-        .footer-sep {
+        .footer-links span {
             color: var(--border);
-            font-size: 0.8rem;
-            user-select: none;
+            font-size: 0.7rem;
         }
 
-        /* ============================================================
-           ANIMATIONS
-           ============================================================ */
-        @keyframes fadeSlideDown {
-            from { opacity: 0; transform: translateY(-14px); }
-            to   { opacity: 1; transform: translateY(0); }
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-12px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to   { opacity: 1; transform: translateY(0); }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ============================================================
-           RESPONSIVE
-           ============================================================ */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 380px) {
-            .login-hero { padding: 30px 16px 44px; }
-            .brand-name { font-size: 1.65rem; }
-            .brand-logo-wrap, .brand-logo { width: 64px; height: 64px; }
-            .brand-logo img { width: 38px; height: 38px; }
-            .brand-logo { border-radius: 18px; }
-            .login-body-section { padding: 26px 16px 20px; }
-            .hero-pills { gap: 5px; }
-            .hero-pill { padding: 4px 9px; font-size: 0.62rem; }
-            .features-grid { gap: 6px; }
-            .feature-card { padding: 11px 4px 10px; }
-            .feature-icon { width: 28px; height: 28px; }
-            .feature-icon .material-icons { font-size: 0.9rem; }
-            .feature-label { font-size: 0.56rem; }
-        }
-
-        @media (max-width: 320px) {
-            .hero-pill { padding: 3px 7px; font-size: 0.58rem; }
-            .feature-label { font-size: 0.52rem; }
-            .trust-chip { padding: 4px 9px; font-size: 0.64rem; }
+            .hero { padding: 44px 20px 60px; }
+            .app-name { font-size: 1.7rem; }
+            .logo { width: 62px; height: 62px; }
+            .logo img { width: 36px; height: 36px; }
+            .body-section { padding: 36px 20px 24px; }
+            .greeting h2 { font-size: 1.15rem; }
         }
 
         @media (min-width: 768px) {
-            .login-hero { padding: 60px 24px 80px; }
-            .brand-name { font-size: 2.3rem; }
-            .brand-tagline { font-size: 1rem; }
-            .brand-logo-wrap, .brand-logo { width: 90px; height: 90px; }
-            .brand-logo img { width: 54px; height: 54px; }
-            .brand-logo { border-radius: 24px; }
-            .login-body-section { padding: 38px 24px 28px; margin-top: -26px; }
-            .login-action,
-            .section-divider,
-            .features-grid,
-            .login-footer { max-width: 440px; }
-            .google-btn { padding: 16px 24px; font-size: 1rem; }
-            .feature-card { padding: 16px 8px 14px; }
-            .feature-label { font-size: 0.72rem; }
+            .hero { padding: 72px 24px 96px; }
+            .app-name { font-size: 2.4rem; }
+            .logo { width: 84px; height: 84px; }
+            .logo img { width: 50px; height: 50px; }
+            .body-section { padding: 52px 24px 36px; margin-top: -30px; }
+            .card, .footer { max-width: 400px; }
+            .sign-in-btn { padding: 17px 28px; font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- Loading Overlay -->
+<!-- Loading -->
 <div class="loading-overlay" id="loadingOverlay">
-    <div class="loading-logo-box">
+    <div class="loading-icon">
         <span class="material-icons">account_balance_wallet</span>
     </div>
-    <div class="loading-track">
-        <div class="loading-fill"></div>
-    </div>
-    <div class="loading-label">Loading TrackMyTxn...</div>
-</div>
-
-<!-- Dark Hero -->
-<div class="login-hero">
-    <div class="hero-orb-1"></div>
-    <div class="hero-orb-2"></div>
-
-    <div class="login-hero-inner">
-
-        <!-- Logo -->
-        <div class="brand-logo-wrap">
-            <div class="brand-logo-ring"></div>
-            <div class="brand-logo">
-                <!-- Replace src with: images/favicon-512.png in your project -->
-                <img src="https://placehold.co/44x44/1e293b/ffffff?text=T" alt="TrackMyTxn">
-            </div>
-        </div>
-
-        <div class="brand-name">TrackMy<span class="txn">Txn</span></div>
-        <div class="brand-tagline">Smart money tracking for smart people</div>
-
-        <!-- Status pills -->
-        <div class="hero-pills">
-            <div class="hero-pill">
-                <span class="hero-pill-dot green"></span>
-                Free forever
-            </div>
-            <div class="hero-pill">
-                <span class="hero-pill-dot blue"></span>
-                Cloud synced
-            </div>
-            <div class="hero-pill">
-                <span class="hero-pill-dot purple"></span>
-                Encrypted
-            </div>
-        </div>
-
+    <div class="loading-bar">
+        <div class="loading-bar-inner"></div>
     </div>
 </div>
 
-<!-- White Body -->
-<div class="login-body-section">
+<!-- Hero -->
+<div class="hero">
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
+    <div class="hero-content">
+        <div class="logo">
+            <img src="https://placehold.co/42x42/1e293b/ffffff?text=T" alt="TrackMyTxn">
+        </div>
+        <div class="app-name">TrackMy<span>Txn</span></div>
+        <div class="app-tagline">Smart money tracking for smart people</div>
+    </div>
+</div>
 
-    <!-- Handle -->
-    <div class="body-handle"></div>
+<!-- Body -->
+<div class="body-section">
 
-    <!-- Action: greeting + button + trust -->
-    <div class="login-action">
+    <div class="card">
 
-        <div class="login-greeting">
-            <div class="login-greeting-title">Welcome back 👋</div>
-            <div class="login-greeting-subtitle">Sign in to access your dashboard</div>
+        <div class="greeting">
+            <h2>Welcome back 👋</h2>
+            <p>Sign in to continue to your dashboard</p>
         </div>
 
-        <!-- Auth Error -->
         <div class="auth-error" id="authError">
             <span class="material-icons">error_outline</span>
             <span id="authErrorText"></span>
         </div>
 
-        <!-- Google Sign In Button -->
-        <div class="google-btn-wrap">
-            <div class="google-btn-glow"></div>
-            <button class="google-btn" id="googleSignInBtn"
-                    onclick="handleSignIn(this, event)">
-                <div class="google-icon-circle">
-                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
-                </div>
-                Continue with Google
-            </button>
-        </div>
+        <button class="sign-in-btn" id="googleSignInBtn" onclick="handleSignIn(this, event)">
+            <div class="g-icon">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
+            </div>
+            Continue with Google
+        </button>
 
-        <!-- Trust chips -->
-        <div class="trust-strip">
-            <div class="trust-chip">
-                <span class="material-icons green">check_circle</span>
-                100% Free
+        <div class="trust-line">
+            <div class="trust-item">
+                <span class="material-icons">check_circle</span> Free
             </div>
-            <div class="trust-chip">
-                <span class="material-icons blue">lock</span>
-                Secure
+            <div class="trust-item">
+                <span class="material-icons">check_circle</span> Secure
             </div>
-            <div class="trust-chip">
-                <span class="material-icons purple">cloud_done</span>
-                Synced
+            <div class="trust-item">
+                <span class="material-icons">check_circle</span> Synced
             </div>
         </div>
 
     </div>
 
-    <!-- "What you get" divider -->
-    <div class="section-divider">
-        <div class="section-divider-line"></div>
-        <div class="section-divider-text">What you get</div>
-        <div class="section-divider-line"></div>
-    </div>
-
-    <!-- 4 Feature Cards -->
-    <div class="features-grid">
-        <div class="feature-card">
-            <div class="feature-icon green">
-                <span class="material-icons">trending_up</span>
-            </div>
-            <div class="feature-label">Track Income</div>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon blue">
-                <span class="material-icons">insights</span>
-            </div>
-            <div class="feature-label">Smart Reports</div>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon orange">
-                <span class="material-icons">group</span>
-            </div>
-            <div class="feature-label">Split Bills</div>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon purple">
-                <span class="material-icons">picture_as_pdf</span>
-            </div>
-            <div class="feature-label">Export PDF</div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="login-footer">
-        <div class="footer-legal">
+    <div class="footer">
+        <div class="footer-text">
             By continuing, you agree to our
             <a href="terms.html">Terms</a> &amp;
             <a href="privacy-policy.html">Privacy</a>
         </div>
         <div class="footer-links">
             <a href="about.html">About</a>
-            <span class="footer-sep">|</span>
+            <span>·</span>
             <a href="contact.html">Contact</a>
         </div>
     </div>
@@ -970,65 +505,48 @@
 </div>
 
 <script>
-    // ==================== Loading ====================
     window.addEventListener('load', function () {
         setTimeout(function () {
             var el = document.getElementById('loadingOverlay');
             if (el) {
                 el.classList.add('hidden');
-                setTimeout(function () { el.remove(); }, 450);
+                setTimeout(function () { el.remove(); }, 500);
             }
         }, 700);
     });
 
-    // ==================== Sign In with Ripple ====================
     function handleSignIn(btn, e) {
-        // Ripple
         var rect = btn.getBoundingClientRect();
         var ripple = document.createElement('span');
         ripple.className = 'ripple';
         var size = Math.max(rect.width, rect.height);
         ripple.style.cssText =
-            'width:' + size + 'px;' +
-            'height:' + size + 'px;' +
-            'left:' + (e.clientX - rect.left - size / 2) + 'px;' +
-            'top:' + (e.clientY - rect.top - size / 2) + 'px;';
+            'width:'+size+'px;height:'+size+'px;left:'
+            +(e.clientX-rect.left-size/2)+'px;top:'
+            +(e.clientY-rect.top-size/2)+'px;';
         btn.appendChild(ripple);
-        setTimeout(function () { ripple.remove(); }, 600);
+        setTimeout(function(){ ripple.remove(); }, 550);
 
-        // Loading state
         btn.disabled = true;
         var orig = btn.innerHTML;
         btn.innerHTML = '<div class="btn-spinner"></div> Signing in…';
 
-        // ⚠️ Replace below with your actual: signInWithGoogle()
+        // Replace with: signInWithGoogle();
         setTimeout(function () {
             btn.innerHTML = orig;
             btn.disabled = false;
-            showAuthError('Demo mode — connect Firebase to enable sign-in.');
-        }, 2200);
+            showAuthError('Demo mode — connect Firebase to sign in.');
+        }, 2000);
     }
 
-    // ==================== Auth Error ====================
     function showAuthError(msg) {
-        var errEl = document.getElementById('authError');
-        var errTxt = document.getElementById('authErrorText');
-        if (errEl && errTxt) {
-            errTxt.textContent = msg;
-            errEl.classList.add('show');
-            setTimeout(function () {
-                errEl.classList.remove('show');
-            }, 6000);
+        var el = document.getElementById('authError');
+        var txt = document.getElementById('authErrorText');
+        if (el && txt) {
+            txt.textContent = msg;
+            el.classList.add('show');
+            setTimeout(function(){ el.classList.remove('show'); }, 6000);
         }
-    }
-
-    // ==================== Service Worker ====================
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function () {
-            navigator.serviceWorker.register('/sw.js')
-                .then(function () { console.log('SW registered'); })
-                .catch(function (err) { console.log('SW error:', err); });
-        });
     }
 </script>
 
